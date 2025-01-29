@@ -12,15 +12,15 @@ import time
 
 def execute_queries_parallel(session: snowpark.Session, queries: list):
     """
-    Author:MAHANTESH HIREMATH
-    Executes multiple SQL queries in parallel using ThreadPoolExecutor.
+    Author: MAHANTESH HIREMATH
+    Executes multiple SQL queries in parallel using ThreadPoolExecutor with exception handling.
 
     Parameters:
         session (snowpark.Session): Snowflake Snowpark session object.
         queries (list): List of SQL queries.
 
     Returns:
-        Snowpark DataFrame: A DataFrame containing query text, execution time, and result.
+        Snowpark DataFrame: A DataFrame containing query text, execution time, and result (or error message).
     """
     if not isinstance(queries, list) or len(queries) == 0:
         raise ValueError("Input must be a non-empty list of SQL queries.")
@@ -29,10 +29,14 @@ def execute_queries_parallel(session: snowpark.Session, queries: list):
 
     def run_query(query):
         start_time = time.time()
-        df = session.sql(query)  # Execute query
-        result_data = df.collect()  # Collect result
-        execution_time = round(time.time() - start_time, 3)
-        return (query, str(result_data), execution_time)  # Convert result to string
+        try:
+            df = session.sql(query)  # Execute query
+            result_data = df.collect()  # Collect result
+            execution_time = round(time.time() - start_time, 3)
+            return (query, str(result_data), execution_time)  # Convert result to string
+        except Exception as e:
+            execution_time = round(time.time() - start_time, 3)
+            return (query, f"ERROR: {str(e)}", execution_time)  # Capture error message
 
     # Execute queries in parallel
     with concurrent.futures.ThreadPoolExecutor() as executor:
@@ -43,12 +47,13 @@ def execute_queries_parallel(session: snowpark.Session, queries: list):
     # Convert results to Snowpark DataFrame
     schema = StructType([
         StructField("query", StringType()),
-        StructField("result", StringType()),  # Store result as a string
+        StructField("result", StringType()),  # Store result or error message as a string
         StructField("execution_time_seconds", DoubleType()),
     ])
     
     df_result = session.create_dataframe(results, schema)
     return df_result
+
 ```
 
 ## CODE TO TRY (EXEC IN SQL WORKSHEET)

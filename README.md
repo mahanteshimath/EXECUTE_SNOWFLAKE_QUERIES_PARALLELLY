@@ -53,7 +53,7 @@ def execute_queries_parallel(session: snowpark.Session, queries: list):
 
 ## CODE TO TRY (EXEC IN SQL WORKSHEET)
 
-# Step 1
+# Step 2
 
 ```sql
 
@@ -223,7 +223,7 @@ RAISE;
     
 END;
 ```
-# Step 2 
+# Step 3
 
 ```sql
 

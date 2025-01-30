@@ -5,7 +5,7 @@ EXECUTE_SNOWFLAKE_QUERIES_PARALLELLY
 
 [![Youtube] (https://www.youtube.com/watch?v=RGiB1cRMzc0)
 
-![alt text](PARALLEL.gif)
+![alt text](PARALLEL-1.gif)
 ```python
 
 import snowflake.snowpark as snowpark

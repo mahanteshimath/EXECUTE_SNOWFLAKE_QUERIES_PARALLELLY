@@ -3,7 +3,7 @@ EXECUTE_SNOWFLAKE_QUERIES_PARALLELLY
 
 # Step 1: SNOWPARK CODE TO BE DEPLOYED AS PROCEDURE (EXEC IN PYTHON WORKSHEET)
 
-(https://www.youtube.com/watch?v=RGiB1cRMzc0)
+https://www.youtube.com/watch?v=RGiB1cRMzc0
 
 ![alt text](PARALLEL-1.gif)
 ```python

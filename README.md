@@ -250,3 +250,13 @@ CALL EXECUTE_QUERIES_PARALLEL([
     'CALL SP_PARALLEL_5(CURRENT_TIMESTAMP)'
     ]);
 ```
+
+
+
+
+
+Note : 
+PYTHON_SNOWPARK_ENABLE_THREAD_SAFE_SESSION make sure this parameter is True 
+
+![image](https://github.com/user-attachments/assets/d94ef86b-9fbb-4022-bf9d-abcfffe4f329)
+
